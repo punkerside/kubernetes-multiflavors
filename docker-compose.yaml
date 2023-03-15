@@ -1,12 +1,26 @@
 version: "3.9"
 services:
 
+  user:
+    image: microservice-multiflavors:node
+    volumes:
+      - ./app/user:/app
+    ports:
+      - "3000:3000"
+
   movie:
     image: microservice-multiflavors:python
     volumes:
       - ./app/movie:/app
     ports:
-      - "8080:8080"
+      - "5000:5000"
 
   redis:
-    image: "redis:alpine"
+    image: redis:alpine
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
