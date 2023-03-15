@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+
+  movie:
+    image: microservice-multiflavors:python
+    volumes:
+      - ./app/movie:/app
+    ports:
+      - "8080:8080"
+
+  redis:
+    image: "redis:alpine"
