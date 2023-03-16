@@ -10,16 +10,18 @@ base:
 	@docker build -t ${PROJECT}-${SERVICE}:python --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/python/Dockerfile .
 	@docker build -t ${PROJECT}-${SERVICE}:node --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/node/Dockerfile .
 	@docker build -t ${PROJECT}-${SERVICE}:npm --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/npm/Dockerfile .
+	@docker build -t ${PROJECT}-${SERVICE}:go --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/go/Dockerfile .
 
 build:
 	@echo ''"${DOCKER_USER}"':x:'"${DOCKER_UID}"':'"${DOCKER_GID}"'::/app:/sbin/nologin' > passwd
-	docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/user:/app ${PROJECT}-${SERVICE}:npm
-
-run:
-	docker-compose up
+#	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/user:/app ${PROJECT}-${SERVICE}:npm
+	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/user:/app ${PROJECT}-${SERVICE}:go get -u github.com/gorilla/mux
+	
+start:
+	@docker-compose up
 
 stop:
-	docker-compose down
+	@docker-compose down
 
 
 ## titan project

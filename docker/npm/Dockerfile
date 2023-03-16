@@ -1,5 +1,5 @@
 ARG IMG
 FROM ${IMG}
 
-RUN apk add npm
+RUN apk add --no-cache npm
 CMD [ "npm", "install" ]
