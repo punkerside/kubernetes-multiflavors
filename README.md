@@ -13,3 +13,23 @@
 | `front` | `/` | go |
 | `movie` | `/movie` | python |
 | `user` | `/user` | nodejs |
+
+## Use
+
+1. Microservice **Movie**
+
+```bash
+# put data
+curl -XPOST http://127.0.0.1:5000/movie?name=everest
+# get data
+curl http://127.0.0.1:5000/movie
+```
+
+2. Microservice **User**
+
+```bash
+# put data
+curl -XPOST http://127.0.0.1:3000/user?name=punkerside
+# get data
+curl http://127.0.0.1:3000/user
+```

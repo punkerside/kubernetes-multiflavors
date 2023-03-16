@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.get('/', (req, res) => {
+app.get('/user', (req, res) => {
   res.json(
       {
           "method": "get"
@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
   );
 })
 
-app.post('/', (req, res) => {
+app.post('/user', (req, res) => {
   res.json(
       {
         "method": "post"
