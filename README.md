@@ -10,9 +10,9 @@
 
 | Name | Path | Flavor |
 |------|-------------|------|
-| `front` | `/` | go |
+| `front` | `/` | nodejs |
 | `movie` | `/movie` | python |
-| `user` | `/user` | nodejs |
+| `music` | `/music` | go |
 
 ## Use
 
@@ -25,11 +25,11 @@ curl -XPOST http://127.0.0.1:5000/movie?name=everest
 curl http://127.0.0.1:5000/movie
 ```
 
-2. Microservice **User**
+2. Microservice **music**
 
 ```bash
 # put data
-curl -XPOST http://127.0.0.1:3000/user?name=punkerside
+curl -XPOST http://127.0.0.1:9081/music?name=moby
 # get data
-curl http://127.0.0.1:3000/user
+curl http://127.0.0.1:9081/music
 ```

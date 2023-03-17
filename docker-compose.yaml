@@ -1,21 +1,22 @@
 version: "3.9"
 services:
 
-  user:
+  music:
     image: microservice-multiflavors:go
+    restart: always
+    command: run app.go
     volumes:
-      - ./app/user:/app
+      - ./app/music:/app
     ports:
       - "9081:9081"
-    command: run app.go
+    depends_on:
+      - mongo
 
-  # mongo:
-  #   image: mongo:latest
-  #   restart: always
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: username
-  #     MONGO_INITDB_ROOT_PASSWORD: password
-
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
 
   # movie:
   #   image: microservice-multiflavors:python

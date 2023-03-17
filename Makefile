@@ -14,8 +14,9 @@ base:
 
 build:
 	@echo ''"${DOCKER_USER}"':x:'"${DOCKER_UID}"':'"${DOCKER_GID}"'::/app:/sbin/nologin' > passwd
-#	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/user:/app ${PROJECT}-${SERVICE}:npm
-	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/user:/app ${PROJECT}-${SERVICE}:go get -u github.com/gorilla/mux
+#	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/front:/app ${PROJECT}-${SERVICE}:npm
+	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/music:/app ${PROJECT}-${SERVICE}:go get -u github.com/gorilla/mux
+	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/music:/app ${PROJECT}-${SERVICE}:go get -u go.mongodb.org/mongo-driver
 	
 start:
 	@docker-compose up
