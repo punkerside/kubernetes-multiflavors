@@ -11,13 +11,12 @@ base:
 	@docker build -t ${PROJECT}-${SERVICE}:node --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/node/Dockerfile .
 	@docker build -t ${PROJECT}-${SERVICE}:npm --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/npm/Dockerfile .
 	@docker build -t ${PROJECT}-${SERVICE}:go --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/go/Dockerfile .
+	@docker build -t ${PROJECT}-${SERVICE}:go-build --build-arg IMG=${PROJECT}-${SERVICE}:base -f docker/go-build/Dockerfile .
 
 build:
 	@echo ''"${DOCKER_USER}"':x:'"${DOCKER_UID}"':'"${DOCKER_GID}"'::/app:/sbin/nologin' > passwd
-#	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/front:/app ${PROJECT}-${SERVICE}:npm
-	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/music:/app ${PROJECT}-${SERVICE}:go get -u github.com/gorilla/mux
-	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/music:/app ${PROJECT}-${SERVICE}:go get -u go.mongodb.org/mongo-driver
-	
+	@docker run --rm -u "${DOCKER_UID}":"${DOCKER_GID}" -v "${PWD}"/passwd:/etc/passwd:ro -v "${PWD}"/app/music:/app ${PROJECT}-${SERVICE}:go-build
+
 start:
 	@docker-compose up
 

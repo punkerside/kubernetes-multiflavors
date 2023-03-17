@@ -6,3 +6,4 @@ package.json
 .cache/
 app/music/go/
 go.sum
+run-app

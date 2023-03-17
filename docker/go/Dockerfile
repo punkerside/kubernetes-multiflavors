@@ -1,9 +1,7 @@
 ARG IMG
 FROM ${IMG}
 
-RUN apk add --no-cache go git
-
-# RUN go get -u github.com/gorilla/mux
+RUN apk add --no-cache go
 
 # COPY app/app.py app.py
-ENTRYPOINT [ "go" ]
+ENTRYPOINT [ "./run-app" ]

@@ -4,7 +4,6 @@ services:
   music:
     image: microservice-multiflavors:go
     restart: always
-    command: run app.go
     volumes:
       - ./app/music:/app
     ports:
@@ -18,12 +17,12 @@ services:
     ports:
       - "27017:27017"
 
-  # movie:
-  #   image: microservice-multiflavors:python
-  #   volumes:
-  #     - ./app/movie:/app
-  #   ports:
-  #     - "5000:5000"
+  movie:
+    image: microservice-multiflavors:python
+    volumes:
+      - ./app/movie:/app
+    ports:
+      - "5000:5000"
 
-  # redis:
-  #   image: redis:alpine
+  redis:
+    image: redis:alpine

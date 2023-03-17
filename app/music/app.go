@@ -1,75 +1,68 @@
 package main
 
 import (
-	"net/http"
 	"io"
-	"time"
-	"context"
-	"log"
 	"fmt"
+	"context"
+	"net/http"
+	"encoding/json"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var ctx, cancel = context.WithTimeout(context.Background(), 20*time.Second)
-
-
 // funcion principal
 func main() {
 
-	http.HandleFunc("/post", postUser)
-	http.HandleFunc("/get", getUser)
+	http.HandleFunc("/post", postBand)
+	http.HandleFunc("/get", getBand)
 	http.ListenAndServe(":9081", nil)
 }
 
-
 // funcion de inserción
-func postUser(w http.ResponseWriter, r *http.Request) {
+func postBand(w http.ResponseWriter, r *http.Request) {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://mongo:27017"))
 	if err != nil {
-	  log.Fatal("There was a connection error", err)
+		panic(err)
 	}
 
-	aDatabase := client.Database("Music")
-	theCollection := aDatabase.Collection("New Music")
+	fmt.Println("POST params were:", r.URL.Query())
+	name := r.URL.Query().Get("name")
 
-	insertResult, err := theCollection.InsertOne(ctx, bson.D{
-		{"Name", "Moby"},
-	})
+	bandsCollection := client.Database("Music").Collection("bands")
+	band := bson.D{{"name", name}}
+	result, err := bandsCollection.InsertOne(context.TODO(), band)
 	if err != nil {
-		log.Println("There was an error in trying to migrate the data into the database")
+		panic(err)
 	}
-	fmt.Println(insertResult.InsertedID)
-
-	io.WriteString(w, "Hello postUser!")
+	fmt.Println(result.InsertedID)
+	w.WriteHeader(http.StatusOK)
 }
 
-
 // funcion de consulta
-func getUser(w http.ResponseWriter, r *http.Request) {
-
+func getBand(w http.ResponseWriter, r *http.Request) {
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://mongo:27017"))
 	if err != nil {
-	  log.Fatal("There was a connection error", err)
+		panic(err)
 	}
-	
-	aDatabase := client.Database("Music")
-	theCollection := aDatabase.Collection("New Music")
 
-	cursor, err := theCollection.Find(ctx, bson.M{})
+	bandsCollection := client.Database("Music").Collection("bands")
+
+	cursor, err := bandsCollection.Find(context.TODO(), bson.D{})
 	if err != nil {
-	 log.Println(err)
+		panic(err)
 	}
 
-	var music []bson.M
-	if err = cursor.All(ctx, &music); err != nil {
-	 log.Println(err)
+	var results []bson.M
+	if err = cursor.All(context.TODO(), &results); err != nil {
+		panic(err)
 	}
 
-	fmt.Print(music)
-	fmt.Println(music)
-
-	io.WriteString(w, "Hello postUser!")
+    jsonStr, err := json.Marshal(results)
+    if err != nil {
+        fmt.Printf("Error: %s", err.Error())
+    }
+	w.WriteHeader(http.StatusOK)
+	io.WriteString(w, string(jsonStr))
 }

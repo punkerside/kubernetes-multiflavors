@@ -14,7 +14,35 @@
 | `movie` | `/movie` | python |
 | `music` | `/music` | go |
 
+## Init
+
+1. Generando imagen de contenedores
+
+```bash
+make base
+```
+
+2. Compilando aplicaciones de prueba
+
+```bash
+make build
+```
+
+3. Iniciando aplicaciones
+
+```bash
+make start
+```
+
+4. Deteniendo aplicaciones
+
+```bash
+make stop
+```
+
 ## Use
+
+
 
 1. Microservice **Movie**
 
@@ -29,7 +57,7 @@ curl http://127.0.0.1:5000/movie
 
 ```bash
 # put data
-curl -XPOST http://127.0.0.1:9081/music?name=moby
+curl -XPOST http://127.0.0.1:9081/post?name=moby
 # get data
-curl http://127.0.0.1:9081/music
+curl http://127.0.0.1:9081/get
 ```
