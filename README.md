@@ -8,11 +8,11 @@
 
 ## Containers
 
-| Name | Path | Flavor |
-|------|-------------|------|
-| `front` | `/` | nodejs |
-| `movie` | `/movie` | python |
-| `music` | `/music` | go |
+| Path | Flavor |
+|-------------|------|
+| `/movie` | python |
+| `/music` | go |
+
 
 ## Init
 
@@ -31,13 +31,13 @@ make build
 3. Iniciando aplicaciones
 
 ```bash
-make start
+make up
 ```
 
 4. Deteniendo aplicaciones
 
 ```bash
-make stop
+make down
 ```
 
 ## Use

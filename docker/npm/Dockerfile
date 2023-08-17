@@ -1,5 +1,0 @@
-ARG IMG
-FROM ${IMG}
-
-RUN apk add --no-cache npm
-CMD [ "npm", "install" ]

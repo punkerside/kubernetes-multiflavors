@@ -1,0 +1,9 @@
+ARG IMG
+FROM ${IMG} as build
+RUN apk add --no-cache python3 python3-dev py3-pip
+CMD [ "pip", "install", "flask", "flask_restful", "redis", "--target=./" ]
+
+FROM ${IMG} as latest
+RUN apk add --no-cache python3
+COPY app/movie/ /app
+CMD [ "python", "app.py" ]

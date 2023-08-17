@@ -2,10 +2,10 @@ version: "3.9"
 services:
 
   music:
-    image: microservice-multiflavors:go
+    image: kubernetes-multiflavors-go:latest
     restart: always
-    volumes:
-      - ./app/music:/app
+    # volumes:
+    #   - ./app/music:/app
     deploy:
       resources:
         limits:
@@ -26,9 +26,9 @@ services:
       - "27017:27017"
 
   movie:
-    image: microservice-multiflavors:python
-    volumes:
-      - ./app/movie:/app
+    image: kubernetes-multiflavors-python:latest
+    # volumes:
+    #   - ./app/movie:/app
     deploy:
       resources:
         limits:

@@ -16,7 +16,7 @@ def id():
     r = redis.StrictRedis(host='redis', port=6379, decode_responses=True)
     name = request.args.get('name', type = str)
     r.set(name, "id")
-    return 'agregando usuario: ' + name
+    return 'adding movie: ' + name
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
