@@ -10,9 +10,9 @@
 
 | Path | Flavor |
 |-------------|------|
-| `/movie` | python |
-| `/music` | go |
-| `/user` | nodejs |
+| `/movie` | Python |
+| `/music` | Go |
+| `/user` | JavaScript |
 
 ## Init
 
