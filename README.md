@@ -61,3 +61,12 @@ curl -XPOST http://127.0.0.1:9081/post?name=moby
 # get data
 curl http://127.0.0.1:9081/get
 ```
+
+3. Microservice **user**
+
+```bash
+# put data
+curl -X POST -H 'Content-Type: application/json' -d '{"name":  "Ivan Echegaray Avendaño", "email": "my@mail.com"}' http://127.0.0.1:3000/user
+# get data
+curl http://127.0.0.1:3000/user
+```

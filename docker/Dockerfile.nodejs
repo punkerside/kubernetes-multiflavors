@@ -1,0 +1,9 @@
+ARG IMG
+FROM ${IMG} as build
+RUN apk add --no-cache npm
+CMD [ "npm", "install" ]
+
+FROM ${IMG} as latest
+RUN apk add --no-cache nodejs
+COPY app/user/ /app
+CMD [ "node", "app.js" ]

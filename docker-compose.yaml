@@ -4,8 +4,6 @@ services:
   music:
     image: kubernetes-multiflavors-go:latest
     restart: always
-    # volumes:
-    #   - ./app/music:/app
     deploy:
       resources:
         limits:
@@ -14,7 +12,6 @@ services:
       - "9081:9081"
     depends_on:
       - mongo
-
   mongo:
     image: mongo:latest
     restart: always
@@ -27,17 +24,43 @@ services:
 
   movie:
     image: kubernetes-multiflavors-python:latest
-    # volumes:
-    #   - ./app/movie:/app
     deploy:
       resources:
         limits:
           memory: 128M
     ports:
       - "5000:5000"
-
+    depends_on:
+      - redis
   redis:
     image: redis:alpine
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+
+  user:
+    image: kubernetes-multiflavors-nodejs:latest
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: users
+    volumes:
+      - type: bind
+        source: ./docker/init.sql
+        target: /docker-entrypoint-initdb.d/init.sql
     deploy:
       resources:
         limits:
