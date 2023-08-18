@@ -8,11 +8,11 @@
 
 ## Containers
 
-| Path | Flavor |
-|-------------|------|
-| `/movie` | Python |
-| `/music` | Go |
-| `/user` | JavaScript |
+| Path | Flavor | Database |
+|------|--------|----------|
+| `/movie` | Python | Redis |
+| `/music` | Go | Mongo |
+| `/user` | JavaScript | PostgreSQL |
 
 ## Init
 
