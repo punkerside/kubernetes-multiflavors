@@ -1,10 +1,9 @@
 package com.punkerside.product.entity;
+
 import java.io.Serializable;
 import java.util.Date;
-
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
