@@ -59,8 +59,30 @@ services:
       POSTGRES_DB: users
     volumes:
       - type: bind
-        source: ./docker/init.sql
-        target: /docker-entrypoint-initdb.d/init.sql
+        source: ./docker/postgres.sql
+        target: /docker-entrypoint-initdb.d/postgres.sql
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+
+  product:
+    image: kubernetes-multiflavors-java:latest
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0-debian
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: product
     deploy:
       resources:
         limits:

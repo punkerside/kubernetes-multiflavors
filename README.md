@@ -11,6 +11,7 @@
 | Path | Flavor | Database |
 |------|--------|----------|
 | `/movie` | Python | Redis |
+| `/product` | Java | MySQL |
 | `/music` | Go | Mongo |
 | `/user` | JavaScript | PostgreSQL |
 
@@ -66,7 +67,16 @@ curl http://127.0.0.1:9081/get
 
 ```bash
 # put data
-curl -X POST -H 'Content-Type: application/json' -d '{"name":  "Ivan Echegaray Avendaño", "email": "my@mail.com"}' http://127.0.0.1:3000/user
+curl -X POST -H 'Content-Type: application/json' -d '{"name":  "Ivan Echegaray Avendaño", "email": "ivan.echegaray@outlook.com"}' http://127.0.0.1:3000/user
 # get data
 curl http://127.0.0.1:3000/user
+```
+
+4. Microservice **product**
+
+```bash
+# put data
+curl -X POST -H 'Content-Type: application/json' -d '{"name":  "alicate"}' http://127.0.0.1:8080/product
+# get data
+curl http://127.0.0.1:8080/product
 ```

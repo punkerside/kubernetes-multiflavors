@@ -32,3 +32,5 @@ Jinja2-*.dist-info/
 markupsafe/
 pytz/
 six.py
+.m2/
+target/
